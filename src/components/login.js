@@ -15,7 +15,7 @@ export const Login=()=>{
     // peticion a la api
     const enviarapi= async ()=>{
         try {
-         const res= await fetch("http://localhost:4000/login",{
+         const res= await fetch("https://lista-de-tareas-production.up.railway.app/login",{
            method:"POST",
            body:JSON.stringify({
              usuario:user,

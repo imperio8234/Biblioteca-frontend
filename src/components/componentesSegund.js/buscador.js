@@ -8,7 +8,7 @@ export const Buscador=({ inputText })=>{
    
     // se hace la peticion a la api
     useEffect(()=>{
-        axios.get("http://localhost:4000/login/home",{
+        axios.get("https://lista-de-tareas-production.up.railway.app/login/home",{
             withCredentials:true,
         }).then(res=> {
             if (res) {
@@ -44,7 +44,7 @@ export const Buscador=({ inputText })=>{
             {
                 obBuscados.map(e=>{
                     return  <div className="card contBuscador" >
-                    <img  className="card-img-top im" src={"http://localhost:4000/"+ e.id + e.nombre}></img>
+                    <img  className="card-img-top im" src={"https://lista-de-tareas-production.up.railway.app/"+ e.id + e.nombre}></img>
   
                 <div className="card-body">
                    <h5 className="card-title text">{e.nombre}</h5>
