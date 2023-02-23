@@ -1,0 +1,44 @@
+.btn{
+    width: 100%;
+    height: 100%;
+}
+
+.cont{
+    width: 15rem;
+    height: rem;
+    margin: 10px;
+
+}
+
+.bot{
+    height: 40px;
+}
+.contedeBody{
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.contResultado{
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.cont{
+    height: 350px;
+}
+
+.bot{
+    margin-top: 20px;
+}
+
+.text{
+    margin-bottom: 20px;
+}
+
+.im{
+    height: 170px;
+}

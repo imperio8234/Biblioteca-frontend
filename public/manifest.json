@@ -1,0 +1,38 @@
+{
+  "short_name": "biblioteca",
+  "name": "biblioteca de imagenes ",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "dragon2.5.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "dragon5.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "dragon3.png",
+      "type": "image/png",
+      "sizes": "200x200"
+    },
+    {
+      "src": "dragon4.png",
+      "type": "image/png",
+      "sizes": "400x400"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "display_override": ["fullscreen", "minimal-ui"],
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "categories": [ "education", "music"]
+  
+}
