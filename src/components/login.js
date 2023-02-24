@@ -69,7 +69,7 @@ export const Login=()=>{
 
        //useefect alerta
 useEffect(()=>{
-    if (usuario== "") {
+    if (usuario=== "") {
 
     }else{
       sweet.fire({
@@ -105,9 +105,9 @@ useEffect(()=>{
             <form onSubmit={submit}>
               <fieldset>
                 <legend>ingresa</legend>
-                <label className="form-label" for="usuario">ingresa tu nombre</label>
+                <label className="form-label" htmlFor="usuario">ingresa tu nombre</label>
                 <input onChange={inUsuario} className="form-control" type={"text"} name="usuario"></input>
-                <label className="form-label" for="pass">contraseña</label>
+                <label className="form-label" htmlFor="pass" >contraseña</label>
                 <input onChange={inpass} className="form-control" type={"password"} name="pass"></input>
                 <input type={"submit"} value="ingresar" className="btn btn-dark sub" />
                 <button className="btn btn-dark sub"><Link className="link" to={"/"}>registrarme</Link></button>

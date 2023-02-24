@@ -56,7 +56,7 @@ function Registro(){
     }
 
     const usuarioE=(e)=>{
-        if (e.target.value == "") {
+        if (e.target.value === "") {
           
         }else{
               const usuario=e.target.value;
@@ -67,7 +67,7 @@ function Registro(){
     }
 
     const passE=(e)=>{
-       if (e.target.value=="") {
+       if (e.target.value==="") {
         
        }else{
         const pass=e.target.value;

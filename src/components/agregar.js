@@ -37,7 +37,7 @@ export const Agregar=()=>{
       console.log(data);
       axios.post("https://lista-de-tareas-production.up.railway.app/login/home/tarea/upload", data, confi,)
         .then(res => {
-          if (res.status== 200) {
+          if (res.status=== 200) {
             document.getElementById("formu").reset();
             setArchivo(null);
             setDescrip(null);
@@ -85,9 +85,9 @@ const prev=file[0];
         <form id="formu">
           <fieldset>
             <legend>guada en la biblioteca</legend>
-            <label for="exampleFormControlTextarea1" class="form-label">escribe una referencia para la biblioteca</label>
+            <label htmlFor="exampleFormControlTextarea1" className="form-label">escribe una referencia para la biblioteca</label>
             <textarea onChange={chanInput} class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            <label className="form-label" for="imagen">agrega una imagen</label>
+            <label className="form-label" htmlFor="imagen">agrega una imagen</label>
             <input onInput={file} class="form-control" type="file" id="imagen"></input>
             <input  onClick={enviarApi} type={"submit"} value="guardar" className="btn btn-dark sub" />
            
@@ -96,7 +96,7 @@ const prev=file[0];
         </form>
 
         <div className="previsuali">
-          <img src={previ}></img>
+          <img alt="img" src={previ}></img>
 
         </div>
 

@@ -2,41 +2,50 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/buscador.css"
 
-export const Buscador=({ inputText })=>{
-    const [obj, setObj]=useState([]);
-    const [obBuscados, setObBuscados]=useState([]);
-   
-    // se hace la peticion a la api
-    useEffect(()=>{
-        axios.get("https://lista-de-tareas-production.up.railway.app/login/home",{
-            withCredentials:true,
-        }).then(res=> {
-            if (res) {
-            setObj(res.data.result.tareasConImagenes)
-        }else{
-            console.log("no hay archivos");
-        }
-        }).catch(err=> console.log(err))
-    },[inputText]);
+export const Buscador = ({ inputText }) => {
+    const [obj, setObj] = useState([]);
+  const [obBuscados, setObBuscados] = useState([]);
 
-    //si hay algo en los objetos se ejecuta buscar
-    useEffect(()=>{
-        if (obj.length == 0) {
-            console.log("cargando archivos")   
-        }else{
-            buscar()
-        }
-    }, [obj]);
+  // se hace la petición a la api
+  useEffect(() => {
+    axios.get("https://lista-de-tareas-production.up.railway.app/login/home", {
+      withCredentials: true,
+    }).then(res => {
+      if (res) {
+        setObj(res.data.result.tareasConImagenes)
+      } else {
+        console.log("no hay archivos");
+      }
+    }).catch(err => console.log(err))
+  }, [inputText]);
 
-    // funcion buscar
-    const buscar=()=>{
-        const objBuscad=  []
-        for (const list of obj) {
-            if (list.nombre.includes(inputText)) {
-                objBuscad.push(list)
-            }
-            setObBuscados(objBuscad)   
-        }};
+  // si hay algo en los objetos se ejecuta buscar
+
+  useEffect(()=>{
+
+  }, [obj])
+  // c
+  const comprobar=()=>{
+    if (obj.length === 0) {
+      console.log("cargando archivos")
+    } else {
+      buscarTareas()
+    }
+
+  }
+  setTimeout(()=>{
+    comprobar()
+  }, 1000)
+  // funcion buscar
+  const buscarTareas = () => {
+    const objBuscad = []
+    for (const list of obj) {
+      if (list.nombre.includes(inputText)) {
+        objBuscad.push(list)
+      }
+    }
+    setObBuscados(objBuscad)
+  };
 
         
     return(
@@ -44,7 +53,7 @@ export const Buscador=({ inputText })=>{
             {
                 obBuscados.map(e=>{
                     return  <div className="card contBuscador" >
-                    <img  className="card-img-top im" src={"https://lista-de-tareas-production.up.railway.app/"+ e.id + e.nombre}></img>
+                    <img alt={e.nombre} className="card-img-top im" src={"https://lista-de-tareas-production.up.railway.app/"+ e.id + e.nombre}></img>
   
                 <div className="card-body">
                    <h5 className="card-title text">{e.nombre}</h5>

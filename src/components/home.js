@@ -48,17 +48,17 @@ export const Home=()=>{
 
     <div>
       {/* bara de navegacion*/ }
-        <nav class="navbar bg-dark nave" onClick={()=>setBuscadorConte(false)}>
+        <nav className="navbar bg-dark nave" onClick={()=>setBuscadorConte(false)}>
             
                 <ul class="botonesnav">
-                     <li ><Link class="btn btn-outline-success me-2"to={"contenido"}>contenido</Link></li>
-                     <li ><Link class="btn btn-sm btn-outline-secondary" to={"agregar"}>agregar</Link></li>
+                     <li ><Link className="btn btn-outline-success me-2"to={"contenido"}>contenido</Link></li>
+                     <li ><Link className="btn btn-sm btn-outline-secondary" to={"agregar"}>agregar</Link></li>
                      <li onClick={cerr}  ><Link  class="btn btn-outline-success" to={"/"}>cerrar</Link></li>
                 </ul>
   
                  <form class="form" role="search">
-                    <input onChange={buscarInput} class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button onClick={buscar} class="btn btn-outline-success" type="submit">buscar</button>
+                    <input onChange={buscarInput} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button onClick={buscar} className="btn btn-outline-success" type="submit">buscar</button>
                  </form>
             
          </nav>
