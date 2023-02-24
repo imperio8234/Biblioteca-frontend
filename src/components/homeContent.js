@@ -4,14 +4,14 @@ import "./css/localHome.css"
 import { CambioVistas } from "./componentesSegund.js/cambiodeVista";
 import { Videos } from "./componentesSegund.js/videos";
 import { Imagenes } from "./componentesSegund.js/imagenes";
-import useUser from "../hooks/useUser";
+//import useUser from "../hooks/useUser";
 
 
 
 export const Contenido=()=>{
 
 
-    const { name }=useUser();    
+   // const { name }=useUser();    
    
        const [resultados, setResultados]=useState([]);
        const [objetos, setObjetos]=useState([]);
@@ -94,7 +94,7 @@ export const Contenido=()=>{
 
      return (
         <div className="contedeBody">
-            <h2> {name}, esta es tu biblioteca</h2>
+            <h2> {/*name*/}, esta es tu biblioteca</h2>
            <div className="contResultado">
             {
                         //iteracion de los videos

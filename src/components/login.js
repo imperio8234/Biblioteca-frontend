@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import userContext from "../context/userContext";
+//import userContext from "../context/userContext";
 import  sweet from "sweetalert2"
 import "./css/login.css"
 import { Link } from "react-router-dom"
@@ -93,13 +93,14 @@ useEffect(()=>{
       };
 
       // usecontex valores
-      const userData={
-        name:usuario,
-        year:null
-      };
-
+  //    const userData={
+    //    name:usuario,
+      //  year:null
+      //};
+//<userContext.Provider 
+// </userContext.Provider>
       return (
-        <userContext.Provider value={userData}>
+        value={userData}>
           <div className={autentif?"":"contenedor p-3 mb-2 bg-primary-subtle text-emphasis-primary"}>
           <div className="formulario">
             <form onSubmit={submit}>
@@ -121,6 +122,6 @@ useEffect(()=>{
             {autentif?<Home user={user} ></Home>:""}
         </div>
     
-        </userContext.Provider>
+       
       )
     };
