@@ -22,7 +22,7 @@ export const Contenido=()=>{
 
        //comprobar si hay algo en la peticion
        const comprobar=()=>{
-        if (resultados == 404) {
+        if (resultados === 404) {
             setCambioVistas(false)
         }else{
             setObjetos(resultados)
@@ -44,16 +44,20 @@ export const Contenido=()=>{
     };
 
     //despues de que se actualice resultados se ejecuta la comprobacion 
-    useEffect(()=>{
-        comprobar();
+   
+        setTimeout(()=>{
+            comprobar();
 
-    }, [resultados]);
+        },500)
+
+    
 
     //cuando se comprueba se actualiza objetos y se ejecuta 
     //la filtracion si es video o imagen
-    useEffect(()=>{
+    setTimeout(()=>{
         filtrarVideo()
-    },[objetos]);
+
+    }, 1000)
 
     //en este paso se actualiza la vista si se elimina 
     //un objeto 
