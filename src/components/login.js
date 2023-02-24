@@ -98,9 +98,9 @@ useEffect(()=>{
       //  year:null
       //};
 //<userContext.Provider 
-// </userContext.Provider>
+// </userContext.Provider>value={userData}>
       return (
-        value={userData}>
+        
           <div className={autentif?"":"contenedor p-3 mb-2 bg-primary-subtle text-emphasis-primary"}>
           <div className="formulario">
             <form onSubmit={submit}>
