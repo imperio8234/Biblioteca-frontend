@@ -1,15 +1,18 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import userContext from "../../context/userContext";
 import "../css/buscador.css"
 
+
 export const Buscador = ({ inputText }) => {
+  const {token}=useContext(userContext)
     const [obj, setObj] = useState([]);
   const [obBuscados, setObBuscados] = useState([]);
 
   // se hace la petición a la api
   useEffect(() => {
     axios.get("https://lista-de-tareas-production.up.railway.app/login/home", {
-      withCredentials: true,
+      headers:{Authorization:`Bearer ${token} `}
     }).then(res => {
       if (res) {
         setObj(res.data.result.tareasConImagenes)
@@ -17,7 +20,7 @@ export const Buscador = ({ inputText }) => {
         console.log("no hay archivos");
       }
     }).catch(err => console.log(err))
-  }, [inputText]);
+  }, [inputText,token]);
 
   // si hay algo en los objetos se ejecuta buscar
 

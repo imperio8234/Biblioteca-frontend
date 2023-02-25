@@ -1,25 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState, useContext, useEffect } from "react";
+import userContext from "../context/userContext";
 import axios from "axios";
 import "./css/localHome.css"
 import { CambioVistas } from "./componentesSegund.js/cambiodeVista";
 import { Videos } from "./componentesSegund.js/videos";
 import { Imagenes } from "./componentesSegund.js/imagenes";
-//import useUser from "../hooks/useUser";
+
 
 
 
 export const Contenido=()=>{
 
+    //usando contexto
+   // const [nombre, setNombre]=useState("")
+    const {name, token}=useContext(userContext);
+    //setNombre(name)
+    
 
-   // const { name }=useUser();    
+ 
+     
    
        const [resultados, setResultados]=useState([]);
        const [objetos, setObjetos]=useState([]);
        const [imagenes, setImagenes]=useState([]);
        const [videos, setVideos]=useState([]);
-       const [actualizar, setActualizar]=useState(false)
+     //  const  [actualizar, setActualizar]=useState(false)
        const [cambioVistas, setCambioVistas]=useState();
 
+
+       
+       useEffect(()=>{
+        datosApi()
+    // eslint-disable-next-line
+       },[])
+
+
+
+       
+       //peticiones a la api para recuperar los datos
+       const datosApi=async ()=>{
+        const tokens= await token
+        axios.get("https://lista-de-tareas-production.up.railway.app/login/home",{
+            headers:{
+                Authorization:`Bearer ${tokens} `
+            }
+        }).then(res=> {
+            if (res) {
+            setResultados(res.data.result.tareasConImagenes)
+        }else{
+            console.log("no hay archivos")
+        }
+        }).catch(err=> setResultados(err.response.status))  
+    };
+
+   
+     
        //comprobar si hay algo en la peticion
        const comprobar=()=>{
         if (resultados === 404) {
@@ -30,18 +65,8 @@ export const Contenido=()=>{
         }
        };
 
-       //peticiones a la api para recuperar los datos
-       const datosApi=async ()=>{
-        axios.get("https://lista-de-tareas-production.up.railway.app/login/home",{
-            withCredentials:true,
-        }).then(res=> {
-            if (res) {
-            setResultados(res.data.result.tareasConImagenes)
-        }else{
-            console.log("no hay archivos")
-        }
-        }).catch(err=> setResultados(err.response.status))  
-    };
+
+      
 
     //despues de que se actualice resultados se ejecuta la comprobacion 
    
@@ -61,10 +86,7 @@ export const Contenido=()=>{
 
     //en este paso se actualiza la vista si se elimina 
     //un objeto 
-    useEffect(()=>{
-        datosApi();
-        setActualizar(false)        
-    },[actualizar]);
+
 
     //se filtra los videos e imagenes
     const filtrarVideo=()=>{
@@ -87,14 +109,17 @@ export const Contenido=()=>{
      await axios.delete(`https://lista-de-tareas-production.up.railway.app/login/home/eliminar/${id}/${name}`, config)
      .then(res=>{
         if (res.data.success) {
-            setActualizar(true);        }
+            //setActualizar(true); 
+            datosApi();
+           // setActualizar(false)      
+          }
      })
      .catch(err=>console.log(err))
      };  
 
      return (
         <div className="contedeBody">
-            <h2> {/*name*/}, esta es tu biblioteca</h2>
+            <h2> {name}, esta es tu biblioteca</h2>
            <div className="contResultado">
             {
                         //iteracion de los videos

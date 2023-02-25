@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import userContext from "../context/userContext";
 import axios from "axios";
 import "./css/agregar.css";
 import sweet from "sweetalert2";
@@ -6,7 +7,11 @@ import sweet from "sweetalert2";
 
 
 
+
 export const Agregar=()=>{
+
+  const {token}=useContext(userContext);
+  
   
 
   const [descrip,setDescrip]=useState([]);
@@ -17,6 +22,7 @@ export const Agregar=()=>{
 
 
   const enviarApi = async (e) => {
+    const tokens= await token;
     e.preventDefault();
   
     if (!archivo) {
@@ -29,13 +35,16 @@ export const Agregar=()=>{
         
       
 
-      const confi={
-        Headers:{"content-type": "multipart/form-data"},
-        withCredentials: true,
-      };
+        const confi = {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: `Bearer ${tokens}`
+          }
+        };
+        
   
       console.log(data);
-      axios.post("https://lista-de-tareas-production.up.railway.app/login/home/tarea/upload", data, confi,)
+     await axios.post("https://lista-de-tareas-production.up.railway.app/login/home/tarea/upload", data, confi,)
         .then(res => {
           if (res.status=== 200) {
             document.getElementById("formu").reset();
