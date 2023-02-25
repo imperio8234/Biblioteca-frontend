@@ -40,10 +40,12 @@ export const Contenido=()=>{
        //peticiones a la api para recuperar los datos
        const datosApi=async ()=>{
         const tokens= await token
-        axios.get("https://lista-de-tareas-production.up.railway.app/login/home",{
+        axios.get("http://localhost:4000/login/home",{
+             mode:"cors",
             headers:{
                 Authorization:`Bearer ${tokens} `
-            }
+            },
+            withCredentials:true
         }).then(res=> {
             if (res) {
             setResultados(res.data.result.tareasConImagenes)
@@ -106,7 +108,7 @@ export const Contenido=()=>{
     //funcion para eliminar archivos dela api
     const eliminar= async(id, name)=>{
         const config={ withCredentials:true}
-     await axios.delete(`https://lista-de-tareas-production.up.railway.app/login/home/eliminar/${id}/${name}`, config)
+     await axios.delete(`http://localhost:4000/login/home/eliminar/${id}/${name}`, config)
      .then(res=>{
         if (res.data.success) {
             //setActualizar(true); 

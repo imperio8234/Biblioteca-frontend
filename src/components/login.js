@@ -16,7 +16,7 @@ export const Login=()=>{
 
     // peticion a la api
     const enviarapi= async ()=>{
-      const url="https://lista-de-tareas-production.up.railway.app/login"
+      const url="http://localhost:4000/login"
       const userPass={usuario:user, pass:pass}
       const configu={
         withCredentials:true,
