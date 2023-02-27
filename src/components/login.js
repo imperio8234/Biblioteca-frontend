@@ -34,17 +34,27 @@ export const Login=()=>{
        
         
         }else{
+          sweet.fire({
+            position: 'center',
+            icon: 'error',
+            title: `conntraseña o usuario incorrecto`,
+            showConfirmButton: false,
+            timer: 1500
+              });
      
-       sweet.fire({
-       position: 'center',
-       icon: 'error',
-       title: `conntraseña o usuario incorrecto`,
-       showConfirmButton: false,
-       timer: 1500
-         });
+      
         }         
         } catch (error) {
-         console.log(error)
+         if(error){
+          sweet.fire({
+            position: 'center',
+            icon: 'error',
+            title: `conntraseña o usuario incorrecto`,
+            showConfirmButton: false,
+            timer: 1500
+              });
+
+         }
          
         }
        };
