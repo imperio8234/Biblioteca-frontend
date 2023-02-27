@@ -7,3 +7,13 @@
 form{
     width: 250px;
 }
+
+
+.displ{
+    display: none;
+}
+
+.contenedorMobil{
+    height: 100vh;
+
+}

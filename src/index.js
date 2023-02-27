@@ -10,6 +10,7 @@ import { Login } from './components/login';
 import Registro from './components/registro';
 import { Agregar} from "./components/agregar"
 import { Contenido } from "./components/homeContent";
+import { Home } from './components/home';
 
 const router=createBrowserRouter([
   {
@@ -36,6 +37,12 @@ const router=createBrowserRouter([
   },
   {
     path:"/registro",
+    element:<Home />
+
+
+  },
+  {
+    path:"/registro",
     element:<Registro></Registro>
   },
 ])
@@ -52,4 +59,16 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-serviceWorkerRegistration.register();
+serviceWorkerRegistration.register({
+  onUpdate: async (registration) => {
+    // Corremos este código si hay una nueva versión de nuestra app
+    // Detalles en: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+    if (registration && registration.waiting) {
+      await registration.unregister();
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      // Des-registramos el SW para recargar la página y obtener la nueva versión. Lo cual permite que el navegador descargue lo nuevo y que invalida la cache que tenía previamente.
+      window.location.reload();
+    }
+  },
+});
+

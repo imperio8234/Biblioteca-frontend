@@ -21,7 +21,6 @@ export const Contenido=()=>{
      
    
        const [resultados, setResultados]=useState([]);
-       const [objetos, setObjetos]=useState([]);
        const [imagenes, setImagenes]=useState([]);
        const [videos, setVideos]=useState([]);
      //  const  [actualizar, setActualizar]=useState(false)
@@ -40,7 +39,7 @@ export const Contenido=()=>{
        //peticiones a la api para recuperar los datos
        const datosApi=async ()=>{
         const tokens= await token
-        axios.get("https://lista-de-tareas-production.up.railway.app/login/home",{
+       await axios.get("http://localhost:4000/login/home",{
              mode:"cors",
             headers:{
                 Authorization:`Bearer ${tokens} `
@@ -62,7 +61,6 @@ export const Contenido=()=>{
         if (resultados === 404) {
             setCambioVistas(false)
         }else{
-            setObjetos(resultados)
             setCambioVistas(true)
         }
        };
@@ -72,29 +70,20 @@ export const Contenido=()=>{
 
     //despues de que se actualice resultados se ejecuta la comprobacion 
    
-        setTimeout(()=>{
+        useEffect(()=>{
             comprobar();
+            if(resultados.length > 0){
+                filtrarVideo();
+            }
+// eslint-disable-next-line
+        }, [resultados])
 
-        },500)
-
-    
-
-    //cuando se comprueba se actualiza objetos y se ejecuta 
-    //la filtracion si es video o imagen
-    setTimeout(()=>{
-        filtrarVideo()
-
-    }, 1000)
-
-    //en este paso se actualiza la vista si se elimina 
-    //un objeto 
-
-
+        
     //se filtra los videos e imagenes
     const filtrarVideo=()=>{
         let setimag=[];
         let setvid=[]
-        for (const obj of objetos) {
+        for (const obj of resultados) {
            if (obj.tipo.includes("video")) {
             setvid.push(obj)
            }else if (obj.tipo.includes("image")) {
@@ -108,7 +97,7 @@ export const Contenido=()=>{
     //funcion para eliminar archivos dela api
     const eliminar= async(id, name)=>{
         const config={ withCredentials:true}
-     await axios.delete(`https://lista-de-tareas-production.up.railway.app/login/home/eliminar/${id}/${name}`, config)
+     await axios.delete(`http://localhost:4000/login/home/eliminar/${id}/${name}`, config)
      .then(res=>{
         if (res.data.success) {
             //setActualizar(true); 

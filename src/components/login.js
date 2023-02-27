@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import userContext from "../context/userContext";
-import  sweet from "sweetalert2"
+import  sweet from "sweetalert2";
 import "./css/login.css"
 import { Link } from "react-router-dom"
 import { Home } from "./home";
 import axios from "axios";
 
 export const Login=()=>{
+
     const [user, setUser]=useState("")
     const [pass, setPass]=useState("")
-    const [autentif, setAutentif]=useState(false);
-    const [usuario, setUsuario]=useState("");
+     const [usuario, setUsuario]=useState("");
     const [token, setToken]=useState("");
   
 
     // peticion a la api
     const enviarapi= async ()=>{
-      const url="https://lista-de-tareas-production.up.railway.app/login"
+      const url="http://localhost:4000/login"
       const userPass={usuario:user, pass:pass}
       const configu={
         withCredentials:true,
@@ -26,12 +26,11 @@ export const Login=()=>{
          const data= await axios.post(url,userPass,configu);
          console.log(data)
         if(data.data.success){
-          setToken(data.data.user)
+          localStorage.setItem("token",data.data.user )
          setUsuario(data.data.usuario)
-         setAutentif(data.data.success)
-         
-         document.querySelector(".formulario").style.display="none";
-         document.querySelector(".con").style.display="none";  
+       //  document.querySelector(".formulario").style.display="none";
+         //document.querySelector(".con").style.display="none"; 
+       
         
         }else{
      
@@ -67,9 +66,16 @@ export const Login=()=>{
 
        //useefect alerta
 useEffect(()=>{
-    if (usuario=== "") {
+
+  const gettoken=localStorage.getItem("token");
+  if(gettoken){
+    setToken(gettoken)
+  }
+
+    if (usuario === "") {
 
     }else{
+      
       sweet.fire({
         position: 'center',
     icon: 'success',
@@ -77,8 +83,10 @@ useEffect(()=>{
     showConfirmButton: false,
     timer: 1500
       });
-    }
-    },[usuario]);
+     
+    };
+    
+    },[usuario, token]);
     //input para obtener usuario y texto
     const inUsuario=(e)=>{
         const usuario=e.target.value;
@@ -96,12 +104,20 @@ useEffect(()=>{
         token:token
       };
 
+      // recargar la pagina
+            
+          window.addEventListener("load", ()=>{
+            console.log("pagina recargada")
+          })
+
+        
+        
 
       return (
         <userContext.Provider value={userData}>
           
-          <div className={autentif?"":"contenedor p-3 mb-2 bg-primary-subtle text-emphasis-primary"}>
-          <div className="formulario">
+          <div className={token?"":"contenedor p-3 mb-2 bg-primary-subtle text-emphasis-primary contenedorMobil"}>
+          <div className={token?"displ":"formulario"}>
             <form onSubmit={submit}>
               <fieldset>
                 <legend>ingresa</legend>
@@ -118,8 +134,8 @@ useEffect(()=>{
           
           
           </div>
-            {autentif?<Home user={user} ></Home>:""}
-        </div>
+            {token && <Home ></Home>}
+      </div>
 
         </userContext.Provider>
         

@@ -1,17 +1,20 @@
 import { Link , Outlet } from "react-router-dom"
-import { useState } from "react";
+import {  useState } from "react";
 import "./css/local.css"
 import { Buscador } from "./componentesSegund.js/buscador";
+import  sweet from "sweetalert2";
 
-export const Home=()=>{
+export const Home=(  )=>{
 
     const [buscadorConte, setBuscadorConte]=useState(false)
     const [inputText, setInputText]=useState("");
+
+   
   
 
     //cerrar session y 
     const cerr= async()=>{
-        try { const res= await fetch("https://lista-de-tareas-production.up.railway.app/cerrar",{
+        try { const res= await fetch("http://localhost:4000/cerrar",{
           method:"POST",
           body:"",
           credentials: 'include',
@@ -20,7 +23,16 @@ export const Home=()=>{
           }
         })
         const dat= await res.json();
-        console.log(dat)
+        if(dat){
+          sweet.fire({
+            position: 'center',
+            icon: 'success',
+            title: `vuelve pronto`,
+            showConfirmButton: false,
+            timer: 1500
+              });
+              localStorage.removeItem("token")
+        }
           
         } catch (error) {
           console.log(error)
