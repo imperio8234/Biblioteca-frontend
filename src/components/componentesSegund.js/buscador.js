@@ -11,7 +11,7 @@ export const Buscador = ({ inputText }) => {
 
   // se hace la petición a la api
   useEffect(() => {
-    axios.get("http://localhost:4000/login/home", {
+    axios.get("https://lista-de-tareas-production.up.railway.app/login/home", {
       headers:{Authorization:`Bearer ${token} `}
     }).then(res => {
       if (res) {

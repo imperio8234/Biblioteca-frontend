@@ -13,7 +13,8 @@ export const Contenido=()=>{
 
     //usando contexto
    // const [nombre, setNombre]=useState("")
-    const {name, token}=useContext(userContext);
+    const {token}=useContext(userContext);
+    const name=localStorage.getItem("user")
     //setNombre(name)
     
 
