@@ -14,7 +14,7 @@ export const Home=(  )=>{
 
     //cerrar session y 
     const cerr= async()=>{
-        try { const res= await fetch("http://localhost:4000/cerrar",{
+        try { const res= await fetch("https://lista-de-tareas-production.up.railway.app/cerrar",{
           method:"POST",
           body:"",
           credentials: 'include',

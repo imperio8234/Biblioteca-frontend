@@ -22,7 +22,7 @@ export const Imagenes=({ id, nombre, descripcion, eliminar })=>{
     return(
         <div>
             <div className="card cont" >
-                  <img alt={nombre} onClick={modalOpen} className="card-img-top im" src={"http://localhost:4000/"+ id+ nombre}></img>
+                  <img alt={nombre} onClick={modalOpen} className="card-img-top im" src={"https://lista-de-tareas-production.up.railway.app/"+ id+ nombre}></img>
 
               <div className="card-body">
                  <h5 className="card-title text">{name}</h5>
@@ -35,7 +35,7 @@ export const Imagenes=({ id, nombre, descripcion, eliminar })=>{
                     <button className="botonModal" onClick={modalClose}>cerrar</button>
                     <div className="conModal">
                         
-                        <img alt={nombre}  className="card-img-top mod" src={"http://localhost:4000/"+ id+ nombre}></img>
+                        <img alt={nombre}  className="card-img-top mod" src={"https://lista-de-tareas-production.up.railway.app/"+ id+ nombre}></img>
                     </div>
                     
                  </ReactModal>

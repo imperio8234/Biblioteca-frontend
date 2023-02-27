@@ -44,7 +44,7 @@ export const Agregar=()=>{
         
   
       console.log(data);
-     await axios.post("http://localhost:4000/login/home/tarea/upload", data, confi,)
+     await axios.post("https://lista-de-tareas-production.up.railway.app/login/home/tarea/upload", data, confi,)
         .then(res => {
           if (res.status=== 200) {
             document.getElementById("formu").reset();
