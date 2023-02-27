@@ -28,6 +28,7 @@ export const Login=()=>{
         if(data.data.success){
           localStorage.setItem("token",data.data.user )
          setUsuario(data.data.usuario)
+         localStorage.setItem("user", data.data.usuario)
        //  document.querySelector(".formulario").style.display="none";
          //document.querySelector(".con").style.display="none"; 
        
@@ -66,7 +67,7 @@ export const Login=()=>{
 
        //useefect alerta
 useEffect(()=>{
-
+  const getuser=localStorage.getItem("user")
   const gettoken=localStorage.getItem("token");
   if(gettoken){
     setToken(gettoken)
@@ -79,7 +80,7 @@ useEffect(()=>{
       sweet.fire({
         position: 'center',
     icon: 'success',
-    title: `hola ${usuario}`,
+    title: `hola ${getuser}`,
     showConfirmButton: false,
     timer: 1500
       });

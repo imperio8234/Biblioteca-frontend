@@ -32,6 +32,7 @@ export const Home=(  )=>{
             timer: 1500
               });
               localStorage.removeItem("token")
+              localStorage.removeItem("user")
         }
           
         } catch (error) {
