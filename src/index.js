@@ -10,7 +10,8 @@ import { Login } from './components/login';
 import Registro from './components/registro';
 import { Agregar} from "./components/agregar"
 import { Contenido } from "./components/homeContent";
-import { Home } from './components/home';
+import { Perfil } from './components/componentesSegund.js/perfil';
+//import { Home } from './components/home';
 
 const router=createBrowserRouter([
   {
@@ -21,6 +22,11 @@ const router=createBrowserRouter([
     path:"/login",
     element:<Login />,
     children:[
+      {
+        path:"perfil",
+        element:<Perfil />
+
+      },
         {
           path:"contenido",
           element:<Contenido></Contenido>
@@ -35,12 +41,7 @@ const router=createBrowserRouter([
     
   
   },
-  {
-    path:"/registro",
-    element:<Home />
-
-
-  },
+ 
   {
     path:"/registro",
     element:<Registro></Registro>

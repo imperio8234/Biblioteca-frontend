@@ -1,0 +1,21 @@
+.modContenedor{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+   
+    
+}
+
+.botonModal{
+    border-radius: 20px;
+    background: steelblue;
+    border: none;
+}
+
+
+@media ( max-width: 900px) {
+    .mod{
+        width: 400px;
+    }
+    
+}

@@ -52,3 +52,9 @@
 
     
 }
+
+.imgPerfil{
+    width: 60px;
+    border-radius: 100%;
+    border: rgb(52, 52, 12) solid 2px;
+}

@@ -12,7 +12,7 @@ function Registro(){
 
     const enviarapi= async ()=>{
       try {
-        const res= await fetch("https://lista-de-tareas-production.up.railway.app",{
+        const res= await fetch("http://localhost:4000/",{
           method:"POST",
           body:JSON.stringify(
             {
@@ -83,9 +83,9 @@ function Registro(){
           <form onSubmit={env}>
             <fieldset>
               <legend>registrarme</legend>
-              <label className="form-label" for="usuario">registra tu usuario</label>
+              <label className="form-label" htmlFor="usuario">registra tu usuario</label>
               <input onChange={usuarioE} className="form-control" type={"text"} name="usuario"></input>
-              <label className="form-label" for="pass">elige una contraseña</label>
+              <label className="form-label" htmlFor="pass">elige una contraseña</label>
               <input onChange={passE} className="form-control" type={"password"} name="pass"></input>
               <input type={"submit"} value="guardar usuario" className="btn btn-dark sub" />
               <button className="btn btn-dark sub"><Link className="link" to={"/"}>login</Link></button>

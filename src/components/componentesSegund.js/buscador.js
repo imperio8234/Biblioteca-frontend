@@ -2,70 +2,88 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import userContext from "../../context/userContext";
 import "../css/buscador.css"
+import { Resultados } from "./componenteBuscador/sinResultados";
 
 
-export const Buscador = ({ inputText }) => {
+export const Buscador = ({ inputText, enviBuscar }) => {
+
+//parametros de busqueda
+  const [texto, setTexto]=useState("")
+  useEffect(()=>{
+    function ele(){
+      if (enviBuscar) {
+        setTexto(inputText);
+        
+      }
+    }
+ele()
+  }, [enviBuscar, inputText])
+
+
+
   const {token}=useContext(userContext)
     const [obj, setObj] = useState([]);
-  const [obBuscados, setObBuscados] = useState([]);
+    const [encontr, setEncontr]=useState(true);
 
   // se hace la petición a la api
   useEffect(() => {
-    axios.get("https://lista-de-tareas-production.up.railway.app/login/home", {
+    if (enviBuscar &&  texto) {
+      axios.get(`http://localhost:4000/buscar/${texto}`, {
       headers:{Authorization:`Bearer ${token} `}
     }).then(res => {
       if (res) {
-        setObj(res.data.result.tareasConImagenes)
+        setObj(res.data.resultado)
       } else {
         console.log("no hay archivos");
       }
     }).catch(err => console.log(err))
-  }, [inputText,token]);
-
-  // si hay algo en los objetos se ejecuta buscar
+      
+    }
+    // eslint-disable-next-line
+  }, [texto,token]);
 
   useEffect(()=>{
+    if (obj.length <= 0) {
+      setEncontr(false)
 
-  }, [obj])
-  // c
-  const comprobar=()=>{
-    if (obj.length === 0) {
-      console.log("cargando archivos")
+      
     } else {
-      buscarTareas()
+      setEncontr(true)
+      
     }
 
-  }
-  setTimeout(()=>{
-    comprobar()
-  }, 1000)
-  // funcion buscar
-  const buscarTareas = () => {
-    const objBuscad = []
-    for (const list of obj) {
-      if (list.nombre.includes(inputText)) {
-        objBuscad.push(list)
+  }, [obj]);
+
+
+  const eliminar= async(id, name)=>{
+    const config={ withCredentials:true}
+ await axios.delete(`http://localhost:4000/login/home/eliminar/${id}/${name}`, config)
+ .then(res=>{
+    if (res.data.success) {
+      
       }
-    }
-    setObBuscados(objBuscad)
-  };
+ })
+ .catch(err=>console.log(err))
+ };  
 
-        
+      
     return(
         <div className="buscador">
             {
-                obBuscados.map(e=>{
-                    return  <div className="card contBuscador" >
-                    <img alt={e.nombre} className="card-img-top im" src={"https://lista-de-tareas-production.up.railway.app/"+ e.id + e.nombre}></img>
+              encontr? obj.map(e=>{
+                    return  <div className="card contBuscador" key={e.id} >
+                    <img alt={e.nombre} className="card-img-top im" src={"http://localhost:4000/"+ e.id + e.nombre}></img>
   
                 <div className="card-body">
                    <h5 className="card-title text">{e.nombre}</h5>
                     <p className="card-text">{e.descripcion}.</p>
+                    <button onClick={()=>eliminar(e.id, e.nombre)} className="btn btn-primary bot">eliminar</button>
                   </div>
   
                    </div> 
                 })
-            }       
+                :<Resultados></Resultados>
+                      }       
         </div>
     )
 };
