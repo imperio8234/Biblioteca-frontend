@@ -2,16 +2,84 @@ import "../css/perfil.css"
 import { useState, useContext, useEffect} from "react"
 import userContext from "../../context/userContext";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import ReactModal from "react-modal";
+
+// socket chats
+import { io } from "socket.io-client";
+
+
+
+
 
 
 
 export const Perfil=()=>{
 
+    const socketurl =io("http://localhost:4000", { forceNew: true })
+
     const {token}=useContext(userContext);
     const name=localStorage.getItem("user")
     const [foto, setFoto]=useState(null);
-    const [datos, setDatos]=useState(null)
+    const [datos, setDatos]=useState(null);
+    const [modal,setModal]=useState(false);
 
+    // para enviar a el servidor del chat socket 
+   //const [socket, setSocket]=useState();
+    const [envChat, setEnvChat]=useState();
+    const [mensage, setMensage]=useState([]);
+  //  const [socketId, setSocketId]=useState();
+    const [listUser, setListUser]=useState([]);
+    
+    
+
+    //recibir mensagges
+useEffect(()=>{
+    const reciMensajes=(msg)=>{
+        
+        setMensage([msg, ...mensage]);
+    };
+
+    const reciveUserlist=(userlist)=>{
+        setListUser(userlist)
+
+    };
+    //recibir usuarios conectados
+    socketurl.on("userlist", reciveUserlist);
+    //recibir mensajes
+    socketurl.on("mensajedev", reciMensajes)
+
+    return ()=> {
+        socketurl.off("userlist", reciveUserlist)
+        socketurl.off("mensajedev", reciMensajes) }
+
+}, [mensage, socketurl])
+    
+    
+   //enviar mensaje a el servidor 
+    const enviarChat=(e)=>{
+        e.preventDefault();
+        socketurl.emit("mensage", envChat, name);
+        const newMesagge={
+            body:envChat,
+            from:"yo"
+        }  
+
+        setMensage([newMesagge, ...mensage]);
+        setEnvChat("");
+    };
+/// mostrar el mensaje en el cliente
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+    //definir el padre del modal de react
+    useEffect(()=>{
+        ReactModal.setAppElement("body")
+
+    },[])
    
 // enviar foto cargada mediante una peticion put
 
@@ -90,6 +158,43 @@ if (token) {
                 </div>
 
             </div>
+            <div className="conteIcon" >
+            <FontAwesomeIcon icon={faMessage}  className="chat" title="chat" onClick={()=>setModal(true)} />
+            <div className="form-control">
+                <ul>
+                    {
+                        listUser.map(e=>(
+                            <li>{e}</li>
+                        ))
+                    }
+                </ul>
+
+            </div>
+            
+            </div>
+            <ReactModal isOpen={modal} onRequestClose={()=>setModal(false)}  >
+
+                <div >
+                    <div className="contenedorChatTexto form-control p-8 overflow-y-scroll">
+                        
+                        {
+                            mensage.map((e, index)=>( 
+                                        <div key={index} className={`d-flex form-control p-2 mb-3 rounded-3  ${e.from === "yo"?"justify-content-end": "justify-content-start"} `}>
+                                          <p >{e.from}:{e.body}</p>
+                                        </div>
+                                 
+                            )) 
+                        }
+
+                    </div>
+                    <form onSubmit={enviarChat}  className="form-control d-flex p-3 gap-3">
+                        <input onChange={e=>setEnvChat(e.target.value)} className="form-control" type={"text"} value={envChat}></input>
+                        <input className="btn btn-dark" type={"submit"}></input>
+
+                    </form>
+                </div>
+
+            </ ReactModal>
         </div>
     )
 }
