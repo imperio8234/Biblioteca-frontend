@@ -28,7 +28,7 @@ ele()
   // se hace la petición a la api
   useEffect(() => {
     if (enviBuscar &&  texto) {
-      axios.get(`http://localhost:4000/buscar/${texto}`, {
+      axios.get(`https://lista-de-tareas-production.up.railway.app/buscar/${texto}`, {
       headers:{Authorization:`Bearer ${token} `}
     }).then(res => {
       if (res) {
@@ -57,7 +57,7 @@ ele()
 
   const eliminar= async(id, name)=>{
     const config={ withCredentials:true}
- await axios.delete(`http://localhost:4000/login/home/eliminar/${id}/${name}`, config)
+ await axios.delete(`https://lista-de-tareas-production.up.railway.app/login/home/eliminar/${id}/${name}`, config)
  .then(res=>{
     if (res.data.success) {
       
@@ -72,7 +72,7 @@ ele()
             {
               encontr? obj.map(e=>{
                     return  <div className="card contBuscador" key={e.id} >
-                    <img alt={e.nombre} className="card-img-top im" src={"http://localhost:4000/"+ e.id + e.nombre}></img>
+                    <img alt={e.nombre} className="card-img-top im" src={"https://lista-de-tareas-production.up.railway.app/"+ e.id + e.nombre}></img>
   
                 <div className="card-body">
                    <h5 className="card-title text">{e.nombre}</h5>

@@ -12,7 +12,7 @@ function Registro(){
 
     const enviarapi= async ()=>{
       try {
-        const res= await fetch("http://localhost:4000/",{
+        const res= await fetch("https://lista-de-tareas-production.up.railway.app",{
           method:"POST",
           body:JSON.stringify(
             {

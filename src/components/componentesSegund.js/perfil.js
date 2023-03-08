@@ -17,7 +17,7 @@ import { io } from "socket.io-client";
 
 export const Perfil=()=>{
 
-    const socketurl =io("http://localhost:4000", { forceNew: true })
+    const socketurl =io("https://lista-de-tareas-production.up.railway.app", { forceNew: true })
 
     const {token}=useContext(userContext);
     const name=localStorage.getItem("user")
@@ -98,7 +98,7 @@ const enviar= async()=>{
           }
     }
 
-   await axios.put("http://localhost:4000/foto",data, config)
+   await axios.put("https://lista-de-tareas-production.up.railway.app/foto",data, config)
    .then(res=>{
     console.log(res)
     getFoto()
@@ -115,7 +115,7 @@ const fotos=(e)=>{
 // obtener la foto de perfil mediante una peticion get 
 
 const getFoto= async()=>{
-  await  axios.get("http://localhost:4000/foto",{
+  await  axios.get("https://lista-de-tareas-production.up.railway.app/foto",{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -144,7 +144,7 @@ if (token) {
         <div>
             <div className="contenedorperfil">
                 <div className="contperfilFoto">
-                <img className="uploadPerfil" alt="perfil" src={"http://localhost:4000/"+ datos}/>
+                <img className="uploadPerfil" alt="perfil" src={"https://lista-de-tareas-production.up.railway.app/"+ datos}/>
                  <label htmlFor="inputFile" className="boton-personalizado">
                     elige una imagen de perfil
                     <input onInput={fotos} type="file" id="inputFile" name="inputFile" className="input-personalizado" />

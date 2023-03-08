@@ -21,7 +21,7 @@ export const Home=(  )=>{
 
     //cerrar session y 
     const cerr= async()=>{
-        try { const res= await fetch("http://localhost:4000/cerrar",{
+        try { const res= await fetch("https://lista-de-tareas-production.up.railway.app/cerrar",{
           method:"POST",
           body:"",
           credentials: 'include',
@@ -50,7 +50,7 @@ export const Home=(  )=>{
 
       // implementacion del buscador
       const getFoto= async()=>{
-        await  axios.get("http://localhost:4000/foto",{
+        await  axios.get("https://lista-de-tareas-production.up.railway.app/foto",{
               headers:{
                   Authorization: `Bearer ${token}`
               }
@@ -102,7 +102,7 @@ export const Home=(  )=>{
     <div>
       {/* bara de navegacion*/ }
         <nav className="navbar bg-dark nave">
-         <Link to={"perfil"}> <img title="perfil" className="imgPerfil" alt="no hay imagen" src={"http://localhost:4000/"+ datos} ></img></Link>
+         <Link to={"perfil"}> <img title="perfil" className="imgPerfil" alt="no hay imagen" src={"https://lista-de-tareas-production.up.railway.app/"+ datos} ></img></Link>
             
                 <ul class="botonesnav">
                      <li ><Link className="btn btn-outline-success me-2"to={"contenido"}>contenido</Link></li>
