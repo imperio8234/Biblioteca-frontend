@@ -5,6 +5,8 @@ import { Buscador } from "./componentesSegund.js/buscador";
 import  sweet from "sweetalert2";
 import axios from "axios";
 import userContext from "../context/userContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons"
 
 
 
@@ -17,6 +19,7 @@ export const Home=(  )=>{
     const [inputText, setInputText]=useState("");
     const [enviBuscar, setEnviBuscar]=useState(false);
     const [datos, setDatos]=useState(null);
+    const [mosNav, setMosNav]=useState(false);
    
 
     //cerrar session y 
@@ -95,16 +98,25 @@ export const Home=(  )=>{
   useEffect(()=>{
     getFoto();
 // eslint-disable-next-line
-   }, [])
+   }, []);
+
+   //barra de navegacion 
+   const mostrarNav=()=>{
+    setMosNav(true);
+   } 
 
    return(
 
     <div>
       {/* bara de navegacion*/ }
         <nav className="navbar bg-dark nave">
-         <Link to={"perfil"}> <img title="perfil" className="imgPerfil" alt="no hay imagen" src={"https://lista-de-tareas-production.up.railway.app/"+ datos} ></img></Link>
-            
-                <ul class="botonesnav">
+          <div className="bars" onClick={mostrarNav}>
+            <FontAwesomeIcon className="iconBars" icon={faBars} ></FontAwesomeIcon>
+
+          </div>
+                     
+                <ul class={`botonesnav ${mosNav?"menuDesplegar":"barstranslate"}`}>
+                  <li><Link to={"perfil"}> <img title="perfil" className="imgPerfil" alt="no hay imagen" src={"https://lista-de-tareas-production.up.railway.app/"+ datos} ></img></Link></li>
                      <li ><Link className="btn btn-outline-success me-2"to={"contenido"}>contenido</Link></li>
                      <li ><Link className="btn btn-sm btn-outline-secondary" to={"agregar"}>agregar</Link></li>
                      <li onClick={cerr}  ><Link  class="btn btn-outline-success" to={"/"}>cerrar</Link></li>
@@ -120,7 +132,7 @@ export const Home=(  )=>{
       
       
       {/*aqui se muestra el contenido guardado */}
-      <div id="detail" onClick={()=>setBuscadorConte(false)}>
+      <div id="detail" onClick={()=>{setBuscadorConte(false); setMosNav(false)}}>
        <Outlet></Outlet>
         {buscadorConte &&<Buscador inputText={inputText} enviBuscar={enviBuscar}></Buscador>}
   

@@ -31,6 +31,7 @@ export const Perfil=()=>{
     const [mensage, setMensage]=useState([]);
   //  const [socketId, setSocketId]=useState();
     const [listUser, setListUser]=useState([]);
+    const [contar, setContar]=useState(0);
     
     
 
@@ -139,6 +140,12 @@ if (token) {
 // eslint-disable-next-line
 }, [])
 
+// numero de mensajes entrantes
+useEffect(()=>{
+setContar(+ 1);
+}, [mensage])
+console.log(contar)
+
 
     return (
         <div>
@@ -179,8 +186,8 @@ if (token) {
                         
                         {
                             mensage.map((e, index)=>( 
-                                        <div key={index} className={`d-flex form-control p-2 mb-3 rounded-3  ${e.from === "yo"?"justify-content-end": "justify-content-start"} `}>
-                                          <p >{e.from}:{e.body}</p>
+                                        <div key={index} className={`d-flex form-control p-2 mb-3 rounded-3  ${e.from === "yo"?"justify-content-end bg-primary": "justify-content-start"} `}>
+                                          <span >{e.from}:{e.body}</span>
                                         </div>
                                  
                             )) 

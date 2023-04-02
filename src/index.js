@@ -11,7 +11,9 @@ import Registro from './components/registro';
 import { Agregar} from "./components/agregar"
 import { Contenido } from "./components/homeContent";
 import { Perfil } from './components/componentesSegund.js/perfil';
-//import { Home } from './components/home';
+import { RecuperarContraseña } from './components/componentesSegund.js/recuperacion de contraseña/recuperacion';
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 const router=createBrowserRouter([
   {
@@ -45,7 +47,10 @@ const router=createBrowserRouter([
   {
     path:"/registro",
     element:<Registro></Registro>
-  },
+  },{
+    path:"/recoverePasword",
+    element:<RecuperarContraseña />
+  }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

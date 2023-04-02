@@ -5,13 +5,17 @@ import "./css/login.css"
 import { Link } from "react-router-dom"
 import { Home } from "./home";
 import axios from "axios";
+import { RecoverPass } from "./componentesSegund.js/recuperacion de contraseña/recoverPass";
+
 
 export const Login=()=>{
+  //hook use state
 
     const [user, setUser]=useState("")
     const [pass, setPass]=useState("")
-     const [usuario, setUsuario]=useState("");
+    const [usuario, setUsuario]=useState("");
     const [token, setToken]=useState("");
+    const [RecoverEDPass, setRecoverPass]=useState(false)
   
 
     // peticion a la api
@@ -86,7 +90,7 @@ useEffect(()=>{
     if (usuario === "") {
 
     }else{
-      
+      // mostrar alerta 
       sweet.fire({
         position: 'center',
     icon: 'success',
@@ -119,15 +123,18 @@ useEffect(()=>{
             
           window.addEventListener("load", ()=>{
             console.log("pagina recargada")
-          })
+          });
 
-        
-        
+          //cerrar modal
+          const modalClosed=(cerrar)=>{
+            setRecoverPass(cerrar)
+
+          }
 
       return (
         <userContext.Provider value={userData}>
           
-          <div className={token?"":"contenedor p-3 mb-2 bg-primary-subtle text-emphasis-primary contenedorMobil"}>
+          <div className={token?"":"contenedor p-3 mb-2 bg-primary-subtle text-emphasis-primary"}>
           <div className={token?"displ":"formulario"}>
             <form onSubmit={submit}>
               <fieldset>
@@ -141,12 +148,16 @@ useEffect(()=>{
                  
               </fieldset>
             </form>
-            <button  className="btn btn-dark sub olvi">olvidaste tu contraseña ?</button>
-          
-          
+            
+            
+            {/*recuperar contraseña*/}
+            <button onClick={()=>setRecoverPass(true)}  className="btn btn-dark sub olvi">olvidaste tu contraseña ?</button>
+
+            
           </div>
             {token && <Home ></Home>}
       </div>
+      {RecoverEDPass && <RecoverPass modalClosed={modalClosed} setmodal={RecoverEDPass}  />}
 
         </userContext.Provider>
         
