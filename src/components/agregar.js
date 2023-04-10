@@ -17,6 +17,9 @@ export const Agregar=()=>{
   const [descrip,setDescrip]=useState([]);
   const [archivo,setArchivo]=useState(null);
   const [previ, setPrevi]= useState(null)
+  const [UploadProgress, setUploadProgress]=useState(0);
+
+  console.log(UploadProgress)
  
 
 
@@ -38,14 +41,20 @@ export const Agregar=()=>{
         const confi = {
           headers: {
             "content-type": "multipart/form-data",
-            Authorization: `Bearer ${tokens}`
-          }
+            Authorization: `Bearer ${tokens}`,
+            
+          },
+          onUploadProgress:(ProgressEvent)=>{
+            const progress= Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100);
+            setUploadProgress(progress);
+          },
         };
         
   
-      console.log(data);
-     await axios.post("https://lista-de-tareas-production.up.railway.app/login/home/tarea/upload", data, confi,)
+    
+     await axios.post("http://localhost:4000/login/home/tarea/upload", data, confi,)
         .then(res => {
+          console.log(res)
           if (res.status=== 200) {
             document.getElementById("formu").reset();
             setArchivo(null);
@@ -93,7 +102,7 @@ const prev=file[0];
       <div className="formulario">
         <form id="formu">
           <fieldset>
-            <legend>guada en la biblioteca</legend>
+            <legend>guarda imagenes y videos </legend>
             <label htmlFor="exampleFormControlTextarea1" className="form-label">escribe una referencia para la biblioteca</label>
             <textarea onChange={chanInput} class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             <label className="form-label" htmlFor="imagen">agrega una imagen</label>
@@ -103,11 +112,28 @@ const prev=file[0];
            
           </fieldset>
         </form>
+        { UploadProgress > 0 &&
+        
+          <div className="contenedorProgress">
+          {
+            UploadProgress === 100 ? <span> archivo guardado</span>:
+            <div className="progress" style={{ width: `${UploadProgress}%` }}>
 
-        <div className="previsuali">
-          <img alt="img" src={previ}></img>
+          </div>
+          }
 
         </div>
+
+        }
+      
+{/* previsualizacion*/}
+       {previ &&
+        <div className="previsuali">
+        <img alt="img" src={previ}></img>
+
+      </div>
+
+       }
 
       </div>
     </div>

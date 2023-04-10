@@ -5,3 +5,14 @@
     margin-left: auto;
 
 }
+.contenedorProgress{
+    width: 250px;
+    height: 20px;
+    margin-top: 5px;
+}
+
+.progress{
+    height: 10%;
+    
+    background: rgb(211, 17, 17);
+}

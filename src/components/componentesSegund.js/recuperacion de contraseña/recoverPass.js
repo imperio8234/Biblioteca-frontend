@@ -16,7 +16,7 @@ export const RecoverPass=({ setmodal, modalClosed })=>{
     const sendapi= async ()=>{
        
         const sendemail={userEmail:email}
-        await axios.post("https://lista-de-tareas-production.up.railway.app/login/newpass", sendemail)
+        await axios.post("http://localhost:4000/login/newpass", sendemail)
         .then(res=>{if (res.data.success === true) {
             console.log()
             document.querySelector(".formRecover").elements[1].value="";

@@ -38,10 +38,14 @@
   }
 
   .contenedorTexto{
+    color: blanchedalmond;
     display: flex;
     flex-direction: column;
-    background: teal;
+    background-image: url("http://localhost:4000/fondo.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
+    height: 300px;
     padding: 10px;
     border-radius: 10px;
     align-items: center;

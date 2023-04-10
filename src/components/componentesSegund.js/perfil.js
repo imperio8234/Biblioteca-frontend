@@ -17,7 +17,7 @@ import { io } from "socket.io-client";
 
 export const Perfil=()=>{
 
-    const socketurl =io("https://lista-de-tareas-production.up.railway.app", { forceNew: true })
+    const socketurl =io("http://localhost:4000", { forceNew: true })
 
     const {token}=useContext(userContext);
     const name=localStorage.getItem("user")
@@ -31,7 +31,7 @@ export const Perfil=()=>{
     const [mensage, setMensage]=useState([]);
   //  const [socketId, setSocketId]=useState();
     const [listUser, setListUser]=useState([]);
-    const [contar, setContar]=useState(0);
+   // const [contar, setContar]=useState(0);
     
     
 
@@ -99,7 +99,7 @@ const enviar= async()=>{
           }
     }
 
-   await axios.put("https://lista-de-tareas-production.up.railway.app/foto",data, config)
+   await axios.put("http://localhost:4000/foto",data, config)
    .then(res=>{
     console.log(res)
     getFoto()
@@ -116,7 +116,7 @@ const fotos=(e)=>{
 // obtener la foto de perfil mediante una peticion get 
 
 const getFoto= async()=>{
-  await  axios.get("https://lista-de-tareas-production.up.railway.app/foto",{
+  await  axios.get("http://localhost:4000/foto",{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -138,20 +138,13 @@ if (token) {
  getFoto()
 }
 // eslint-disable-next-line
-}, [])
-
-// numero de mensajes entrantes
-useEffect(()=>{
-setContar(+ 1);
-}, [mensage])
-console.log(contar)
-
+}, []);
 
     return (
         <div>
             <div className="contenedorperfil">
                 <div className="contperfilFoto">
-                <img className="uploadPerfil" alt="perfil" src={"https://lista-de-tareas-production.up.railway.app/"+ datos}/>
+                <img className="uploadPerfil" alt="perfil" src={datos?`http://localhost:4000/${datos}`:`http://localhost:4000/perfil.jpg`}/>
                  <label htmlFor="inputFile" className="boton-personalizado">
                     elige una imagen de perfil
                     <input onInput={fotos} type="file" id="inputFile" name="inputFile" className="input-personalizado" />

@@ -16,7 +16,7 @@ export const RecuperarContraseña=()=>{
             email:email,
             pass:pass
         }
-       await axios.post("https://lista-de-tareas-production.up.railway.app/login/cambio", enviarInfo)
+       await axios.post("http://localhost:4000/login/cambio", enviarInfo)
         .then(e=>{
             sweet.fire({
                 position: 'center',

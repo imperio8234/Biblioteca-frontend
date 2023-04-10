@@ -24,7 +24,7 @@ export const Home=(  )=>{
 
     //cerrar session y 
     const cerr= async()=>{
-        try { const res= await fetch("https://lista-de-tareas-production.up.railway.app/cerrar",{
+        try { const res= await fetch("http://localhost:4000/cerrar",{
           method:"POST",
           body:"",
           credentials: 'include',
@@ -53,7 +53,7 @@ export const Home=(  )=>{
 
       // implementacion del buscador
       const getFoto= async()=>{
-        await  axios.get("https://lista-de-tareas-production.up.railway.app/foto",{
+        await  axios.get("http://localhost:4000/foto",{
               headers:{
                   Authorization: `Bearer ${token}`
               }
@@ -116,7 +116,7 @@ export const Home=(  )=>{
           </div>
                      
                 <ul class={`botonesnav ${mosNav?"menuDesplegar":"barstranslate"}`}>
-                  <li><Link to={"perfil"}> <img title="perfil" className="imgPerfil" alt="no hay imagen" src={"https://lista-de-tareas-production.up.railway.app/"+ datos} ></img></Link></li>
+                  <li><Link to={"perfil"}> <img title="perfil" className="imgPerfil" alt="no hay imagen" src={datos?`http://localhost:4000/${datos}`:`http://localhost:4000/perfil.jpg`} ></img></Link></li>
                      <li ><Link className="btn btn-outline-success me-2"to={"contenido"}>contenido</Link></li>
                      <li ><Link className="btn btn-sm btn-outline-secondary" to={"agregar"}>agregar</Link></li>
                      <li onClick={cerr}  ><Link  class="btn btn-outline-success" to={"/"}>cerrar</Link></li>
